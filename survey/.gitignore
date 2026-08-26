@@ -1,0 +1,26 @@
+# Publisher content. The survey reads full-text PDFs of 150 published
+# papers and the methods sections extracted from them. Those are the
+# publishers' copyright, not ours, so they stay local and are never
+# committed. results/ carries the data we generated from them, which is
+# what the analysis actually depends on.
+pdfs/
+texts/
+
+# Secrets. survey.py reads ANTHROPIC_API_KEY from the environment.
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db
