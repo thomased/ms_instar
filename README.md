@@ -67,20 +67,6 @@ Rscript R/03_exemplar_manzi.R
 `survey/results/` is a separate, longer job with its own requirements and
 API costs. See [`survey/README.md`](survey/README.md).
 
-## What is not here
-
-Three things are deliberately excluded, and the analysis does not depend
-on any of them:
-
-- `doc/` — manuscript drafts and co-author comment copies.
-- `lit/` — reference PDFs held for reading. Publisher copyright.
-- `survey/pdfs/`, `survey/texts/` — full text of the 150 surveyed papers
-  and the methods sections extracted from them. Also publisher
-  copyright. The scores derived from them are in `survey/results/`,
-  which is what the analysis actually reads.
-
-Every script in this repository runs from a clean checkout.
-
 ## Licence
 
 Code is MIT licensed (see `LICENSE`). The data in `survey/results/` and
