@@ -211,11 +211,29 @@ empty `doi` in `scores.csv`. The papers are distinct — every `slug` and
 title is unique — so `slug` is the identifier to key on. `n = 150`
 is unaffected.
 
-## Recommended human check
+## Validation
 
-Sample about 10% of eligible papers (15 of 150) and re-score by
-hand from `scores_notes.csv` — that's fast, since the notes are
-per-item quotes.
+Two rounds of hand-checking, both at 10% (one paper per journal), are
+recorded in `scores.csv`:
+
+- `validated_prior` — the first paper of each journal in the original
+  row order. This round was used to refine the scoring prompts, so
+  agreement on it is in-sample and not evidence of accuracy.
+- `validated_post` — a second, held-out sample drawn at random from the
+  papers not used in that refinement (seed 20260903). This is the round
+  the manuscript reports.
+
+`validation_notes.csv` holds the second round in workable form: one row
+per item per paper, carrying the automated score, its justification, and
+an `agree` column recording whether the hand-check upheld it. Agreement
+was 262 of 270 item-level scores (97%). Every disagreement ran the same
+way, with the automated scoring crediting an item that had not clearly
+been reported, so coverage is if anything slightly overstated. Those
+eight scores were left as scored rather than corrected, so the validated
+subset is treated no differently from the other 135 papers.
+
+To repeat the exercise, re-score by hand from `scores_notes.csv` — that
+is fast, since the notes are per-item quotes.
 Common places to expect drift:
 
 - `behaviour_general` and `affect_indicators` are the least literal, so
@@ -224,6 +242,10 @@ Common places to expect drift:
   mixes field collection with lab holding.
 - `ethics_review` needs Y even when the study just says "no ethics
   approval was required for invertebrate work" — that IS a report.
+- `health_injury` should not be Y for planned experimental mortality;
+  the item is about unexpected injury and death.
+- `proc_biosecurity` is easily marked NA for lab work on an introduced
+  species, which is exactly where it does apply.
 
 If a per-item drift is systematic, tweak the corresponding prompt line
 in `RUBRIC` inside `survey.py` and re-score with `--force`.
@@ -246,6 +268,7 @@ survey/
     ├── papers.csv                      # candidate papers
     ├── scores.csv                      # per-paper × per-item scores + eligibility
     ├── scores_notes.csv                # per-cell justifications + eligibility notes
+    ├── validation_notes.csv            # held-out hand-check of 15 papers
     ├── summary.csv                     # per-item aggregate stats
     ├── summary_by_journal.csv          # per-journal median coverage
     ├── summary_meta.csv                # headline stats (n, medians, means)
