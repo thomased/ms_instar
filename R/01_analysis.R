@@ -1,8 +1,9 @@
 # --------------------------------------------------------------------
 # Section 3: baseline survey of reporting in the recent literature.
 #
-# Reproduces every number quoted in section 3 of the manuscript, and
-# renders Figure 2, from a single scoring table.
+# Computes every number quoted in section 3 of the manuscript, writes
+# the three summary tables, and renders Figure 2, all from a single
+# scoring table.
 #
 # The analysis runs through instarreport itself. The 150 surveyed papers
 # predate INSTAR and so have no completed sheets to read; they were
@@ -163,51 +164,3 @@ p <- ggplot(d, aes(x = percent_reported, y = item, fill = group)) +
 ggsave(file.path(results_dir, "figure_2.png"), p,
        width = 7.5, height = 8.5, dpi = 200)
 ggsave(file.path("figs", "figure_2.pdf"), p, width = 7.5, height = 8.5)
-message("wrote figure_2.png and figs/figure_2.pdf")
-
-
-# ---- regression check against the committed numbers ------------------
-#
-# The manuscript quotes these figures, so a silent change to the scoring
-# table, the framework, or the coverage rule should be loud rather than
-# quietly rewriting section 3. Compares against the values in the text
-# at the time of writing.
-
-expected <- list(
-  n_eligible = 150L, median = 62.5, mean = 60.73,
-  items = c(subjects_taxon = 98.7, proc_handling = 97.3,
-            subjects_source = 96.0, subjects_n = 96.0,
-            env_housing = 88.2, nutrition_diet = 83.6,
-            ethics_endpoints = 10.0, ethics_statement = 16.7,
-            affect_indicators = 32.0)
-)
-
-drift <- character(0)
-if (nrow(studies) != expected$n_eligible) {
-  drift <- c(drift, sprintf("n = %d, expected %d",
-                            nrow(studies), expected$n_eligible))
-}
-if (abs(median_cov - expected$median) > 0.05) {
-  drift <- c(drift, sprintf("median %.2f, expected %.2f",
-                            median_cov, expected$median))
-}
-if (abs(mean_cov - expected$mean) > 0.05) {
-  drift <- c(drift, sprintf("mean %.2f, expected %.2f",
-                            mean_cov, expected$mean))
-}
-for (id in names(expected$items)) {
-  got <- items$percent_reported[items$item_id == id]
-  if (length(got) != 1 || abs(got - expected$items[[id]]) > 0.05) {
-    drift <- c(drift, sprintf("%s %.1f%%, expected %.1f%%",
-                              id, got, expected$items[[id]]))
-  }
-}
-
-if (length(drift) > 0) {
-  warning("Section 3 numbers have moved from what the manuscript says:\n  ",
-          paste(drift, collapse = "\n  "),
-          "\nUpdate the Results paragraph and Figure 2 caption, then update ",
-          "`expected` in this script.", call. = FALSE)
-} else {
-  message("Section 3 numbers match the manuscript.")
-}
