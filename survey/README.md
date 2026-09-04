@@ -181,27 +181,8 @@ Filters to `eligible=Y` papers, then writes:
 - `summary_meta.csv` — headline stats (n eligible, n excluded,
   median and mean coverage).
 
-Printed to stdout: `n_papers` eligible (fills the `[N]` slot in §3),
-median coverage (fills the `[X]%` slot), file paths, and the R
-command to render the figure.
-
-### 5. Render Figure 2 separately &nbsp;·&nbsp; *free*
-
-`R/01_analysis.R` already renders the figure, so this step is only
-needed if you took the Python route in step 4.
-
-```
-Rscript code/plot_figure_2.R
-```
-
-Reads `results/summary.csv` and `results/summary_meta.csv` and writes
-`results/figure_2.png`. Requires: `readr`, `dplyr`, `ggplot2`,
-`forcats`. Pass a different output path as the first argument (e.g.
-`Rscript code/plot_figure_2.R results/figure_2.pdf`) if you want a PDF or
-SVG.
-
-Note this script keeps its own hand-maintained copy of the 18 items,
-which had already drifted from the package's labels. Prefer
+Printed to stdout: `n_papers` eligible (fills the `[N]` slot in §3) and
+median coverage (fills the `[X]%` slot). Figure 2 itself is rendered by
 `R/01_analysis.R`.
 
 ## A note on `doi`
@@ -260,8 +241,7 @@ survey/
 │   ├── survey.py                       # the Python pipeline
 │   ├── build_papers_from_pdfs.py       # metadata harvest from local PDFs
 │   ├── enrich_papers_from_crossref.py  # optional CrossRef enrichment
-│   ├── redact_pii.py                   # strips scraped emails from metadata
-│   └── plot_figure_2.R                 # R/ggplot2 figure renderer
+│   └── redact_pii.py                   # strips scraped emails from metadata
 ├── pdfs/                               # NOT IN REPO - publisher copyright
 ├── texts/                              # NOT IN REPO - publisher copyright
 └── results/                            # all deliverables live here

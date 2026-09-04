@@ -21,17 +21,15 @@ package, which lives separately:
 ```
 .
 ├── data/
-│   ├── INSTAR.csv          # the blank reporting sheet (plain text)
-│   └── INSTAR.xlsx         # identical, formatted for spreadsheet use
-├── code/
-│   └── build_instar_xlsx.py    # generates the .xlsx from the .csv
+│   ├── INSTAR.csv              # the blank reporting sheet (plain text)
+│   └── INSTAR.xlsx             # identical, formatted for spreadsheet use
 ├── R/
-│   ├── 01_analysis.R       # section 3: all numbers + Figure 2
-│   └── 03_exemplar_manzi.R # Figure 1 exemplar
-├── survey/                 # the baseline literature survey (see its README)
-│   ├── code/               # the scoring pipeline
-│   └── results/            # scores and summaries for all 150 papers
-└── figs/                   # rendered figures
+│   ├── 01_analysis.R           # section 3: all numbers + Figure 2
+│   └── 02_exemplar_manzi.R     # Figure 1 exemplar
+├── survey/                     # the baseline literature survey (see its README)
+│   ├── code/                   # the scoring pipeline
+│   └── results/                # scores and summaries for all 150 papers
+└── figs/                       # rendered figures
 ```
 
 ## Reproducing the paper
@@ -44,9 +42,9 @@ package:
 remotes::install_github("thomased/instarreport")
 ```
 
-**Section 3 and Figure 2.** Reads the scoring table and reproduces every
-value quoted in the results, warning loudly if any has moved from what
-the manuscript states:
+**Section 3 and Figure 2.** Reads the scoring table and computes every
+value quoted in the results, writes the three summary tables, and renders
+Figure 2:
 
 ```
 Rscript R/01_analysis.R
@@ -60,7 +58,7 @@ package rather than being restated here.
 worked example:
 
 ```
-Rscript R/03_exemplar_manzi.R
+Rscript R/02_exemplar_manzi.R
 ```
 
 **The survey itself.** Re-running the scoring pipeline that produced
