@@ -8,10 +8,10 @@ research.
 > Latty, T., Umbers, K., & Drinkwater, E. (in prep). INSTAR: reporting
 > items for invertebrate welfare in research.
 
-This repository holds the reporting sheet, the baseline literature
-survey reported in section 3, and the scripts that produce every number
-and figure in the paper. The framework itself is implemented as an R
-package, which lives separately:
+This repository holds the baseline literature survey reported in section
+3 and the scripts that produce every number and figure in the paper. The
+framework itself, and the blank reporting sheet in both `.csv` and
+`.xlsx` form, live with the R package:
 
 - **Package and web tool:** <https://instar-statement.org>
 - **Source:** <https://github.com/thomased/instarreport>
@@ -20,9 +20,6 @@ package, which lives separately:
 
 ```
 .
-├── data/
-│   ├── INSTAR.csv              # the blank reporting sheet (plain text)
-│   └── INSTAR.xlsx             # identical, formatted for spreadsheet use
 ├── R/
 │   ├── 01_analysis.R           # section 3: all numbers + Figure 2
 │   └── 02_exemplar_manzi.R     # Figure 1 exemplar
@@ -67,7 +64,7 @@ API costs. See [`survey/README.md`](survey/README.md).
 
 ## Licence
 
-Code is MIT licensed (see `LICENSE`). The data in `survey/results/` and
-`data/` is released under CC0. Bibliographic metadata originates from
+Code is MIT licensed (see `LICENSE`). The data in `survey/results/` is
+released under CC0. Bibliographic metadata originates from
 OpenAlex and Crossref. The surveyed papers remain under their publishers'
 terms and are not redistributed here.
